@@ -16,7 +16,6 @@ mydb=mysql.connector.connect(
 cursor = mydb.cursor()
 
 csv_columns=''
-total_cols
 #the column names gotten from the most recent csv
 columns= pd.read_csv('./data/hockey_stat2025.csv').columns
 for col in columns:
@@ -24,6 +23,7 @@ for col in columns:
 csv_columns=csv_columns+', year'
 csv_columns=csv_columns[2:]
 print(csv_columns)
+
 
 # the sql column names
 cursor.execute("SHOW COLUMNS FROM player_stats")
@@ -35,6 +35,10 @@ print(sql_columns)
 for year in range(1950, 2026):
     try:
         df = pd.read_csv(f'./data/hockey_stat{year}.csv')
+        #
+        #NEED TO CHECK IF 1950.CSV COLUMNS MATCH THE NAMES OF THE COLUMNS IN COLUMNS VARIABLE - THE VARIABLE WE CHECK AGAINST IS JUST CALLED COLUMNS!
+        #
+
         for row in range(len(df)):
             row_data=''
             for i in df.iloc[row]:
